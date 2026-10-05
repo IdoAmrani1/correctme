@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CorrecTMe - Privacy Policy</title>
+<meta name="description" content="Privacy policy for CorrecTMe, a Windows utility that corrects text typed in the wrong keyboard layout.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1f2328;
+    --muted: #59636e;
+    --rule: #d8dee4;
+    --accent: #0969da;
+    --code-bg: #f6f8fa;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --fg: #e6edf3;
+      --muted: #9198a1;
+      --rule: #30363d;
+      --accent: #4493f8;
+      --code-bg: #161b22;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 46rem; margin: 0 auto; padding: 3rem 16px 5rem; }
+  h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 .4rem; letter-spacing: -.01em; }
+  h2 {
+    font-size: 1.25rem; margin: 2.4rem 0 .8rem; padding-bottom: .35rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  h3 { font-size: 1.05rem; margin: 1.8rem 0 .6rem; }
+  p, li { margin: 0 0 .9rem; }
+  ul { padding-left: 1.4rem; }
+  li { margin-bottom: .55rem; }
+  code {
+    background: var(--code-bg); border-radius: 6px; padding: .15em .4em;
+    font: .88em/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+    overflow-wrap: anywhere;
+  }
+  a { color: var(--accent); }
+  em.updated { display: block; color: var(--muted); font-style: normal; font-size: .9rem; margin-bottom: 2rem; }
+  footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .875rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>CorrecTMe — Privacy Policy</h1>
+<em class="updated">Last updated: 2026-10-04</em>
+<p>CorrecTMe ("the App") is a Windows utility that automatically corrects text typed in the wrong keyboard layout (for example, Hebrew typed while the keyboard is set to English, or vice versa). This document explains exactly what the App reads, what it stores, and what it never does.</p>
+<h2>What the App reads</h2>
+<p>To do its job, CorrecTMe reads keyboard input <strong>system-wide</strong> — that is, in every application, not just its own window — because it has no other way to detect that a word was typed in the wrong layout while you are typing it. This is the same category of access used by any keyboard-layout-correction or text-expansion utility (e.g. Punto Switcher-style tools).</p>
+<p>The App also notices when a <strong>mouse button is pressed</strong>, anywhere. A click can move the text cursor without a key being pressed, and the App must then forget what it was about to correct, or the correction would land in the wrong place. It reads nothing else about the mouse — not where you click or what you click on — and records nothing about it.</p>
+<h3>Clipboard</h3>
+<p>When you ask the App to flip selected text — with the shortcut, or from the tray menu — it briefly uses the Windows clipboard to read that selection. Windows offers no other reliable way for one program to see what is selected in another. The App sends a Copy command to the application you are using, reads the result, and puts your previous clipboard contents back. The text is held in memory only: it is never written to a file and never transmitted.</p>
+<p>Two consequences you should know about:</p>
+<ul><li><strong>The copy is performed by the application you are typing in, not by the App.</strong> That copy may therefore appear in Windows clipboard history (Win+V), in the cloud clipboard if you have that enabled, and in any clipboard manager you have installed. The App cannot prevent this, and it does not apply to the App's own write when it restores your clipboard, which is marked private.</li><li><strong>Only plain text can be restored.</strong> If you had an image, a file, or formatted content on the clipboard, it is destroyed by the Copy command itself, before the App reads anything. The App warns you when this happens.</li></ul>
+<p>The App does not read your clipboard at any other time — not in the background, and not while correcting as you type.</p>
+<p><strong>Do not use the flip shortcut on passwords or other sensitive text.</strong> The App declines to act in Windows password fields it can recognise, but it cannot recognise password fields inside web pages.</p>
+<h2>What the App stores, and where</h2>
+<p>Everything the App stores lives in <code>%APPDATA%\CorrecTMe\</code> on your own machine:</p>
+<ul><li><strong><code>corrections_log.jsonl</code></strong> — a rolling history of your <strong>last 10 corrections</strong> (original text, corrected text, confidence score, and the name of the application you were typing in). It is automatically trimmed to the last 10 entries on every write; older entries are deleted, not archived. You can clear it at any time from <strong>Settings → Clear Correction Log Now</strong>, or switch logging off entirely from the same screen.</li><li><strong><code>settings.json</code></strong> — your chosen settings (language pair, hotkeys, correction sensitivity, etc.).</li><li><strong><code>app.log</code></strong> — a diagnostic log used to troubleshoot problems. At the App's default logging level this records only that a correction happened and how many characters it affected — <strong>not</strong> the text itself. Your typed text is recorded here only if you deliberately raise the logging level to DEBUG for troubleshooting. The file is size-capped and rotates automatically. You may delete it at any time.</li></ul>
+<p>The Undo (Ctrl+Z) feature works from an in-memory record of the single most recent correction, which is discarded when the App closes; it does not read the correction history file.</p>
+<h2>What the App never does</h2>
+<ul><li><strong>Nothing you type is ever transmitted over the network.</strong> CorrecTMe makes no network requests at runtime, has no telemetry, no analytics, and no update pinging.</li><li>The App does not collect, sell, or share any data with third parties, because it does not send any data anywhere.</li><li>The App does not require or request administrator privileges.</li></ul>
+<h2>Your controls</h2>
+<ul><li><strong>Pause/disable</strong> the App at any time from the tray icon or with the toggle hotkey.</li><li><strong>Clear your correction history</strong> at any time from Settings.</li><li><strong>Uninstall</strong> the App like any other Windows application; this removes the App and, if you choose to also delete <code>%APPDATA%\CorrecTMe</code>, your local settings, correction history and diagnostic log.</li></ul>
+<h2>Third-party data</h2>
+<p>The App ships with word-frequency dictionaries used to score whether a block of text looks like real English/Hebrew/etc. words. These dictionaries are derived from Wikipedia content, which is licensed under Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0). See <code>NOTICES.md</code> for full attribution and third-party license details.</p>
+<h2>Contact</h2>
+<p>For privacy questions about CorrecTMe, contact the developer through the support channel listed on the app's Microsoft Store listing page.</p>
+<h2>Changes to this policy</h2>
+<p>If this policy changes, the "Last updated" date above will be revised and the new version will ship with the next App update.</p>
+<footer>Generated from <code>PRIVACY_POLICY.md</code> on 2026-10-05. The same policy ships inside the app.</footer>
+</main>
+</body>
+</html>
